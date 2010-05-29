@@ -26,18 +26,24 @@ class IRC
       prarr(finntid(s[1]), to)
     end
     if(s[0]=="mat")
-      prarr(feedMe("http://www.dagbladet.no/rss/magasinet/oppskrift/", s[1].to_i), to) 
+      prarr(feed("http://www.dagbladet.no/rss/magasinet/oppskrift/", s[1].to_i), to) 
     end
     if(s[0]=="skjera?")
-      prarr(nytt("http://www.aftenposten.no/eksport/rss-1_0/?utvalg=siste100", s[1].to_i), to)
+      prarr(feed("http://www.aftenposten.no/eksport/rss-1_0/?utvalg=siste100", s[1].to_i), to)
     end
     if(s[0]=="hn")
       prarr(feed("http://news.ycombinator.com/rss", s[1].to_i), to)
     end
-  end
-  
-  def evalen(s, to)
-    if (s=="help")
+    if(s[0]=="8-ball")
+      ballsvar = ["As I see it, yes", "It is certain", "It is decidedly so", "Most likely",
+                  "Outlook good","Signs point to yes","Yes","Yes - definitely",
+                  "You may rely on it","Reply Hazy, Try again","Ask Again later",
+                  "Better not tell you now","Cannot predict now",
+                  "Concentrate and ask again","Don't count on it","My reply is no",
+                  "My sources say no","Outlook not so good","Very doubtful"]
+      send "PRIVMSG #{to} :#{ballsvar[(rand(20)-1)]}"
+    end
+    if (s[0]=="help")
       prarr(["Dette er Rubot - en ruby bot", 
              "Jeg har følgende funksjonalitet foreløpig:",
              "@fagtid emnekode - gir forelesningstider i faget",
@@ -45,7 +51,7 @@ class IRC
              "@mat tall - oppskrifter fra dagbladets rss-feed"], to)
     end
   end
-
+  
   def prarr(a, to)
     a.each do |mes|
       send "PRIVMSG #{to} :#{mes}"
@@ -63,11 +69,15 @@ class IRC
     when /^:(.+?)!(.+?)@(.+?)\sPRIVMSG\s.+\s:[\001]VERSION[\001]$/i
       puts "[ CTCP VERSION from #{$1}!#{$2}@#{$3} ]"
       send "NOTICE #{$1} :\001VERSION Ruby-irc v0.042\001"
-    when /^:(.+?)!(.+?)@(.+?)\sPRIVMSG\s(.+)\s:@(.+)\s(.+)$/i
-      puts "[ EVAL #{$5} from #{$1}!#{$2}@#{$3} ]"
-      eval([$5.downcase, $6], (($4==@nick)?$1:$4))
+#    when /^:(.+?)!(.+?)@(.+?)\sPRIVMSG\s(.+)\s:@(.+)\s(.+)$/i
+#      puts "[ EVAL #{$5} from #{$1}!#{$2}@#{$3} ]"
+#      eval([$5.downcase, $6], (($4==@nick)?$1:$4))
     when /^:(.+?)!(.+?)@(.+?)\sPRIVMSG\s(.+)\s:@(.+)$/i
-      evalen($5.downcase, (($4==@nick)?$1:$4))
+      s=s.split(" ")
+      3.times { s.delete_at(0) }
+      s[0]=s[0].slice(2..-1)
+      s.each { |st| st=st.downcase }
+      eval(s, (($4==@nick)?$1:$4))
     else
       puts s
     end

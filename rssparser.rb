@@ -8,7 +8,7 @@ def feed(url, t)
   i = RSS::Parser.parse(open(url), false)
   s = Array.new
   i.items.first(t).each do |it|
-    s.push(it.date.to_s+": "+it.title+" - "+it.link)
+    s.push(it.title+" - "+it.link)
   end
   return s
 end
