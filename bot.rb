@@ -26,13 +26,13 @@ class IRC
       prarr(finntid(s[1]), to)
     end
     if(s[0]=="mat")
-      prarr(feedMe(s[1].to_i), to) 
+      prarr(feedMe("http://www.dagbladet.no/rss/magasinet/oppskrift/", s[1].to_i), to) 
     end
     if(s[0]=="skjera?")
-      prarr(nytt(s[1].to_i), to)
+      prarr(nytt("http://www.aftenposten.no/eksport/rss-1_0/?utvalg=siste100", s[1].to_i), to)
     end
     if(s[0]=="hn")
-      prarr(hnytt(s[1].to_i), to)
+      prarr(feed("http://news.ycombinator.com/rss", s[1].to_i), to)
     end
   end
   
