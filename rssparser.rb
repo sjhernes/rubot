@@ -19,10 +19,10 @@ end
 
 def nytt(t)
   if (t>5); return ["http://www.justfuckinggoogleit.com"]; end
-  return feed("http://www.aftenposten.no/eksport/rss-1_0/?utvalg=siste100"), t)
+  return feed("http://www.aftenposten.no/eksport/rss-1_0/?utvalg=siste100", t)
 end
 
 def hnytt(t)
   if (t>5); return ["http://news.ycombinator.com"]; end 
-  feed("http://news.ycombinator.com/rss"), t)
+  feed("http://news.ycombinator.com/rss", t)
 end

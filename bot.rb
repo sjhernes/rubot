@@ -21,7 +21,7 @@ class IRC
     send "JOIN #{@channel}"
   end
 
-  def eval(s.downcase, to)
+  def eval(s, to)
     if(s[0]=="fagtid")
       prarr(finntid(s[1]), to)
     end
@@ -36,7 +36,7 @@ class IRC
     end
   end
   
-  def evalen(s.downcase, to)
+  def evalen(s, to)
     if (s=="help")
       prarr(["Dette er Rubot - en ruby bot", 
              "Jeg har følgende funksjonalitet foreløpig:",
@@ -64,18 +64,10 @@ class IRC
       puts "[ CTCP VERSION from #{$1}!#{$2}@#{$3} ]"
       send "NOTICE #{$1} :\001VERSION Ruby-irc v0.042\001"
     when /^:(.+?)!(.+?)@(.+?)\sPRIVMSG\s(.+)\s:@(.+)\s(.+)$/i
-      if ($1 == "oyvinbak")
-        send "PRIVMSG #cyb :oyvinbak: no help for you"
-        return
-      end
       puts "[ EVAL #{$5} from #{$1}!#{$2}@#{$3} ]"
-      eval([$5, $6], (($4==@nick)?$1:$4))
+      eval([$5.downcase, $6], (($4==@nick)?$1:$4))
     when /^:(.+?)!(.+?)@(.+?)\sPRIVMSG\s(.+)\s:@(.+)$/i
-      if ($1 == "oyvinbak")
-        send "PRIVMSG #cyb :oyvinbak: no help for you!"
-        return
-      end
-      evalen($5, (($4==@nick)?$1:$4))
+      evalen($5.downcase, (($4==@nick)?$1:$4))
     else
       puts s
     end
