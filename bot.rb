@@ -21,7 +21,7 @@ class IRC
     send "JOIN #{@channel}"
   end
 
-  def eval(s, to)
+  def eval(s.downcase, to)
     if(s[0]=="fagtid")
       prarr(finntid(s[1]), to)
     end
@@ -31,12 +31,12 @@ class IRC
     if(s[0]=="skjera?")
       prarr(nytt(s[1].to_i), to)
     end
-    if(s[0]=="HN")
+    if(s[0]=="hn")
       prarr(hnytt(s[1].to_i), to)
     end
   end
   
-  def evalen(s, to)
+  def evalen(s.downcase, to)
     if (s=="help")
       prarr(["Dette er Rubot - en ruby bot", 
              "Jeg har følgende funksjonalitet foreløpig:",
