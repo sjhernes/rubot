@@ -1,0 +1,13 @@
+require "sqlite3"
+require "rssparser.rb"
+
+db = SQLite3::Database.new("bot.db")
+db.execute( "create table rss (name STRING PRIMARY KEY, link STRING)" )
+db.execute( "insert into rss (hn,http://news.ycombinator.com/rss)" )
+
+def readrss(name, t)
+  puts name
+  url = db.execute( "select "+name+"from rss where l = :link" )
+  puts l
+  return feed(l, t)
+end
