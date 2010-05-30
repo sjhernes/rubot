@@ -3,6 +3,8 @@
 require "socket"
 require "fagtid.rb"
 require "rssparser.rb"
+require "fortune.rb"
+require "datbas.rb"
 
 class IRC
 
@@ -31,17 +33,18 @@ class IRC
     if(s[0]=="skjera?")
       prarr(feed("http://www.aftenposten.no/eksport/rss-1_0/?utvalg=siste100", s[1].to_i), to)
     end
-    if(s[0]=="hn")
-      prarr(feed("http://news.ycombinator.com/rss", s[1].to_i), to)
+    if(s[0]=="rss")
+      if(s[1]=="add")
+        addfeed(s[2], s[3])
+        return
+      end
+      prarr(readrss(s[1], s[2].to_i), to)
     end
     if(s[0]=="8-ball")
-      ballsvar = ["As I see it, yes", "It is certain", "It is decidedly so", "Most likely",
-                  "Outlook good","Signs point to yes","Yes","Yes - definitely",
-                  "You may rely on it","Reply Hazy, Try again","Ask Again later",
-                  "Better not tell you now","Cannot predict now",
-                  "Concentrate and ask again","Don't count on it","My reply is no",
-                  "My sources say no","Outlook not so good","Very doubtful"]
-      send "PRIVMSG #{to} :#{ballsvar[(rand(20)-1)]}"
+x      send "PRIVMSG #{to} :#{$ballsvar[(rand(20)-1)]}"
+    end
+    if(s[0]=="fortune")
+      send "PRIVMSG #{to} :#{$fortune[(rand($fortune.length)-1)]}"
     end
     if (s[0]=="help")
       prarr(["Dette er Rubot - en ruby bot", 

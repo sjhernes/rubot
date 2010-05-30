@@ -12,4 +12,3 @@ def feed(url, t)
   end
   return s
 end
-
