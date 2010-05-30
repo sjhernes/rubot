@@ -111,3 +111,10 @@ $ballsvar = ["As I see it, yes", "It is certain", "It is decidedly so", "Most li
              "Better not tell you now","Cannot predict now",
              "Concentrate and ask again","Don't count on it","My reply is no",
              "My sources say no","Outlook not so good","Very doubtful"]
+$help = ["Dette er Rubot - en ruby bot", 
+         "Jeg har følgende funksjonalitet foreløpig:",
+         "@fagtid emnekode - gir forelesningstider i faget",
+         "@rss <feednavn> <tall> - returnerer <tall> siste rss fra feed (maks 5)",
+         "@rss add <feednavn> <feedlenke> - legger til et feed i db",
+         "@8-ball <spørsmål> - besvarer ja/nei-spørsmål med glans",
+         "@fortune - gir deg en spådom"]

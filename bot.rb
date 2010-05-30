@@ -26,32 +26,23 @@ class IRC
   def eval(s, to)
     if(s[0]=="fagtid")
       prarr(finntid(s[1]), to)
-    end
-    if(s[0]=="mat")
-      prarr(feed("http://www.dagbladet.no/rss/magasinet/oppskrift/", s[1].to_i), to) 
-    end
-    if(s[0]=="skjera?")
-      prarr(feed("http://www.aftenposten.no/eksport/rss-1_0/?utvalg=siste100", s[1].to_i), to)
-    end
-    if(s[0]=="rss")
+    elsif(s[0]=="rss")
       if(s[1]=="add")
         addfeed(s[2], s[3])
         return
       end
       prarr(readrss(s[1], s[2].to_i), to)
-    end
-    if(s[0]=="8-ball")
-x      send "PRIVMSG #{to} :#{$ballsvar[(rand(20)-1)]}"
-    end
-    if(s[0]=="fortune")
+    elsif(s[0]=="8-ball")
+      send "PRIVMSG #{to} :#{$ballsvar[(rand(20)-1)]}"
+    elsif(s[0]=="fortune")
       send "PRIVMSG #{to} :#{$fortune[(rand($fortune.length)-1)]}"
-    end
-    if (s[0]=="help")
-      prarr(["Dette er Rubot - en ruby bot", 
-             "Jeg har følgende funksjonalitet foreløpig:",
-             "@fagtid emnekode - gir forelesningstider i faget",
-             "@skjera? tall - Siste nytt, antall rss fra aftenposten",
-             "@mat tall - oppskrifter fra dagbladets rss-feed"], to)
+    elsif (s[0]=="help")
+      prarr($help, to)
+    else
+      response = ["vat u try to do?", "I'll go down fighting, don't even try", 
+                  "go hide, or I'll unleash awesomeness", 
+                  "I'll call your mom for another date if you don't stop messing"]
+      send "PRIVMSG #{to} :"+response[rand(4)-1]
     end
   end
   
