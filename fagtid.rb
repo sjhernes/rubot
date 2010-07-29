@@ -1,4 +1,7 @@
-require 'rubygems'; require 'open-uri'; require 'hpricot'; require 'sanitize'
+require 'rubygems'
+require 'open-uri'
+require 'hpricot'
+require 'sanitize'
 require 'hashdump.rb'
 
 def finntid(s)
@@ -7,7 +10,7 @@ def finntid(s)
   fag = $fagene[s.upcase]
   begin
     ret = Array.new
-    doc = (Hpricot(open(fag+"v10/tid-og-sted.xml"))).traverse_all_element do |e|
+    doc = (Hpricot(open(fag+"h10/tid-og-sted.xml"))).traverse_all_element do |e|
       if(e.name=="h3" or e.name=="h2")
         if (bol)
           return ret
