@@ -1,7 +1,8 @@
 #!/usr/local/bin/ruby
-["socket","fagtid.rb","rssparser.rb","fortune.rb","datbas.rb",".conf.rb"].each{|w| require w}
+["socket","funksjoner.rb",".conf.rb"].each{|w| require w}
 
 class IRC
+
   def connect()
     @irc = TCPSocket.open($server, $port)
     send "USER rubot Ruby Bot :Ruby Bot" ; send "NICK #{$nick}" ; send "JOIN #{$channel}" ;
@@ -10,7 +11,7 @@ class IRC
   def send(s) @irc.send "#{s}\n", 0; end # Sends stuff via TCPSocket connection.
   
   def prarr(a, to) # Must wait between sends to not be kicked for overflow
-    a.each { |mes| send "PRIVMSG #{to} :#{mes}" ; Kernel.sleep(0.01) ; } 
+    a.each { |mes| send "PRIVMSG #{to} :#{mes}" ; Kernel.sleep(1) ; } 
   end
   
   def eval(s, to)
@@ -63,7 +64,10 @@ class IRC
           return if @irc.eof
           s = @irc.gets
           handle_server_input(s)
-        end;end;end;end;
+        end
+      end
+    end
+  end
 end
 
 irc = IRC.new(); irc.connect()
