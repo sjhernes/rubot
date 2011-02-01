@@ -30,14 +30,9 @@ class MyMailer < ActionMailer::Base
     File.open(textfile, 'r').each_line { |l| t += l }
     body t       
     
-    # set up attachment
-    #    if atm
-    #      aname = atm.gsub(/.*\//,'')
-    #      attachments[aname] = File.read(atm)
-    #    end
   end
 end
 
 # Test    
-mailer = Mymailer.new('sjurher', 'P@$$word')
-mailer.botmail('sjurher@ulrik.uio.no','Sjur Hernes <sjurher@ulrik.uio.no>','testtekst.txt').deliver
+# mailer = Mymailer.new('sjurher', 'P@$$word')
+# mailer.botmail('cyb@ifi.uio.no','CYB <cyb@ifi.uio.no>','testtekst.txt').deliver

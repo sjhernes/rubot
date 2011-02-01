@@ -25,6 +25,8 @@ class MyDocs
   end
 end
 
-# test = MyDocs.new('user@gmail.com', 'Pa$$word')
+# examples
+
+# test = MyDocs.new('sjhernes@gmail.com', 'Pa$$word')
 # puts test.listIds('Cyb aktiv')
 # test.downloadDocAs('Cyb aktiv', 'csv')
