@@ -28,12 +28,6 @@ class IRC
       send "PRIVMSG #{to} :#{$fortune[(rand($fortune.length)-1)]}"
     elsif (s[0]=="help")
       prarr($help, to)
-    elsif (s[0]=="cyb")
-      if(s[1]=="adduser")
-        cybAdduser(s)
-      elsif(s[1]=="rmuser")
-        cybRmuser(s)
-      end
     end
   end
   

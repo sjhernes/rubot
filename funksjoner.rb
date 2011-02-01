@@ -1,11 +1,7 @@
-['rubygems','open-uri','hpricot','sanitize','sqlite3','rss/1.0','rss/2.0','hashdump.rb', "filemailer.rb", "MyDocs.rb", "sympa.rb"].each{|w| require w}
+['rubygems','open-uri','hpricot','sanitize','sqlite3','rss/1.0','rss/2.0','hashdump.rb'].each{|w| require w}
 
 $db = SQLite3::Database.new("bot.db")
 # $db.execute( "create table rss (name STRING PRIMARY KEY, link STRING)" )
-
-def cybAdduser(array)
-  sympa = Sympa.new(@uiomail, @uiopsw, 'cyb-aktiv', 'ifi.uio.no')
-end  
 
 def readrss(name, t) # finds url from database, parses it and returns an array
   if (t>5); return ["http://www.justfuckinggoogleit.com"]; end
